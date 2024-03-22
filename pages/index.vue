@@ -25,7 +25,8 @@
   
   const priceMax = ref<number | null>(route.query.pricemax ? parseFloat(route.query.pricemax as string) : null);
   const bieres = ref<any[]>([]);
-  const favorites = ref([]);
+  const favorites = ref<number[]>([]);
+
   
   const fetchBieres = async () => {
     try {
@@ -50,14 +51,11 @@
     router.push({ query });
   };
   
-  const addToFavorites = (beerId) => {
-      if (!favorites.includes(beerId)) {
-        favorites.push(beerId)
-        $toast.success('Biére ajoutée aux favoris')
-      } else {
-        this.$toast.warning('Biére déjà dans les favoris')
-      }
+  const addToFavorites = (biereId: number) => {
+    if (!favorites.value.includes(biereId)) {
+      favorites.value.push(biereId);
     }
+  };
 
   onMounted(fetchBieres);
   </script>
